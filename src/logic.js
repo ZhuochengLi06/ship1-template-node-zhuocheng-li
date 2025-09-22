@@ -32,6 +32,17 @@
  * @param {string} text raw text from the input box
  * @returns {Array<{t: string, v: string}>} new entries array
  */
+
+function formatTimestamp(date) {
+  const pad = (n) => n.toString().padStart(2, "0");
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
 // eslint-disable-next-line no-unused-vars
 export function addEntry(entries, text) {
   // TODO: remove the following line and write your implementation.
@@ -42,7 +53,7 @@ export function addEntry(entries, text) {
   }
 
   const newEntry = {
-    t: new Date().toISOString(),  // timestamp
+    t: formatTimestamp(new Date()),  // timestamp
     v: trimmed                    // value
   };
 
