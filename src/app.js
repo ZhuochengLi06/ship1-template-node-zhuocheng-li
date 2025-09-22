@@ -119,9 +119,15 @@ listEl.addEventListener("click", (event) => {
 let debounceTimer = null;
 
 searchInput.addEventListener("input", () => {
-  // TODO: Clear any existing timer
-  // TODO: Set a new timer to filter and render after 300ms delay
-  // Hint: Use setTimeout and call searchEntries() then render()
+  if (debounceTimer) {
+    clearTimeout(debounceTimer);
+  }
+  // Set a new timer to filter and render after 300ms delay
+  debounceTimer = setTimeout(() => {
+    const q = searchInput.value;
+    const list = q ? searchEntries(entries, q) : entries;
+    render(list);
+  }, 300);
 });
 
 // TODO (hard mode): Add keyboard shortcuts.

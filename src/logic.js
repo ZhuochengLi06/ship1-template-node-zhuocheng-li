@@ -35,7 +35,19 @@
 // eslint-disable-next-line no-unused-vars
 export function addEntry(entries, text) {
   // TODO: remove the following line and write your implementation.
-  throw new Error("addEntry() not implemented yet");
+  const trimmed = text.trim();
+  if (!trimmed) {
+    // if text is empty after trimming, return original array unchanged
+    throw new Error("Cannot add empty entry");
+  }
+
+  const newEntry = {
+    t: new Date().toISOString(),  // timestamp
+    v: trimmed                    // value
+  };
+
+  // return new array with new entry first (newest at front)
+  return [newEntry, ...entries];
 }
 
 /**
@@ -53,8 +65,18 @@ export function addEntry(entries, text) {
  */
 // eslint-disable-next-line no-unused-vars
 export function deleteEntry(entries, index) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("deleteEntry() not implemented yet");
+  if (
+    !Number.isInteger(index) ||     
+    index < 1 ||                    
+    index > entries.length         
+  ) {
+    return entries; 
+  }
+
+  const i = index - 1;
+
+  
+  return [...entries.slice(0, i), ...entries.slice(i + 1)];
 }
 
 /**
@@ -73,6 +95,11 @@ export function deleteEntry(entries, index) {
  */
 // eslint-disable-next-line no-unused-vars
 export function searchEntries(entries, query) {
-  // TODO: remove the following line and write your implementation.
-  throw new Error("searchEntries() not implemented yet");
+  if (!query) {
+    return entries;
+  }
+
+  const q = query.toLowerCase();
+
+  return entries.filter(e => e.v.toLowerCase().includes(q));
 }
